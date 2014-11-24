@@ -9,6 +9,7 @@ This is my try at getting [Dota 2 Translator](https://github.com/patriksletmo/Do
 Loads of dependencies at the moment and I haven't tried to make this portable yet so here's the installation sequence:
 
 Install libpcap:
+
 1. apt-get install flex
 2. apt-get install bison
 3. apt-get install libpcap-dev
