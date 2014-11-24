@@ -2,6 +2,7 @@ import psutil
 import pcap
 import sniff
 import sys
+import time
 
 executableName = "dota_linux"
 
@@ -12,20 +13,40 @@ def getPort():
                 if c.status == 'NONE': # Status NONE is _obviously_ the one :S
                     return c.laddr[1]  # laddr = (ip-address, port)
 
-# Taken from sniff.py in pylibpcap
-def main():
-    result = getPort()
-    if (result == None): return
+def setupPort(port):
     p = pcap.pcapObject()
     dev = "eth0"
     net, mask = pcap.lookupnet(dev)
     p.open_live(dev, 1600, 0, 100)
-    filterString = "port " + str(result)
+    filterString = "port " + str(port)
     p.setfilter(filterString, 0, 0)
+    return p
 
+def timeDiff(lastScan, t):
+    return int((t-lastScan) * 10)
+
+# Taken from sniff.py in pylibpcap
+def main():
+    lastScan = time.clock()
+    detectPort = True
     try:
         while 1:
-            p.dispatch(1, sniff.detectPrintMessage)
+            now = time.clock()
+            if (timeDiff(lastScan, now) > 10):
+                result = getPort()
+                lastScan = now
+                if (result == None): 
+                    continue
+                p = setupPort(result)
+                detectPort = False
+            
+            while not detectPort:
+                gotPackage = p.dispatch(1, sniff.detectPrintMessage)
+                if (gotPackage == 0):
+                    result = getPort()
+                    if (result == None):
+                        detectPort = True
+
     except KeyboardInterrupt:
         print '%s' % sys.exc_type
         print 'shutting down'
