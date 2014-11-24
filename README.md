@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is my try at getting Dota 2 Translator(https://github.com/patriksletmo/Dota2Translator) to work on my system (linux 17 qiana). As of now it works by intercepting the networktraffic, just like the original, quering google translate for a translation and printing that to a console (so it's nowhere close to beeing as flashy as the original as of yet). 
+This is my try at getting [Dota 2 Translator](https://github.com/patriksletmo/Dota2Translator) to work on my system (linux 17 qiana). As of now it works by intercepting the networktraffic, just like the original, quering google translate for a translation and printing that to a console (so it's nowhere close to beeing as flashy as the original as of yet). 
 
 ## Building From Source
 
