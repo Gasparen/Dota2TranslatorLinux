@@ -16,10 +16,15 @@ Install libpcap:
    
    At this point the ldev.c test should be able to compile (gcc -ldev.c -lpcap)
 
-4. Install [pylibpcap](http://sourceforge.net/projects/pylibpcap/):
-   Download, unpack and install with "python ./setup.py install"
+4. apt-get install python-dev (needed for pylibpcap and psutil)
+5. Install [pylibpcap](http://sourceforge.net/projects/pylibpcap/):
 
-5. Now main.py should be runnable
+	Download, unpack and install with "python ./setup.py install"
+
+6. Install [psutil](https://github.com/giampaolo/psutil):
+
+	Download, unpack and install with "python setup.py install"
+7. Now main.py should be runnable
 
 ## Notes
 Flex and Bison might be substituted with lex/yacc
