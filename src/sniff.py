@@ -29,7 +29,12 @@ def decode_ip_packet(s):
     return d
 
 
+# Callback function for pcapObject.dispatch() to call
+# Checks through packet looking for a chat message and if
+# found prints sender name, the original message and it's
+# translation to console
 def detectPrintMessage(pktlen, data, timestamp):
+    # Magical numbers and structure taken from original Dota 2 Translator
     if not data:
         return
 
@@ -41,11 +46,13 @@ def detectPrintMessage(pktlen, data, timestamp):
     chatFound = str.find(data, ALL_CHAT_IDENTIFIER)
     type = 0
     
+    # If no all chat found
     if (chatFound == -1):
         identifierLength = len(TEAM_CHAT_IDENTIFIER) + 2
         chatFound = str.find(data, TEAM_CHAT_IDENTIFIER)
         type = 1
 
+    # If either all or team chat message found
     if (chatFound != -1):
         indexName = chatFound + identifierLength
         lengthName = ord(data[indexName - 1]) # Get the ascii-value
@@ -55,4 +62,5 @@ def detectPrintMessage(pktlen, data, timestamp):
         name = data[indexName:indexName+lengthName]
         message = data[indexMessage:indexMessage+lengthMessage]
         
+        #          "Terneray operator"~ish
         print "[Allies] " if (type==1) else "", name, ": ", message, " => ", translate.translate(message)
