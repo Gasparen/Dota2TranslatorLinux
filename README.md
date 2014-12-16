@@ -14,7 +14,7 @@ Install libpcap:
 2. apt-get install bison
 3. apt-get install libpcap-dev
    
-   At this point the ldev.c test should be able to compile (gcc -ldev.c -lpcap)
+   At this point the ldev.c test should be able to compile (gcc ldev.c -lpcap)
 
 4. apt-get install python-dev (needed for pylibpcap and psutil)
 5. Install [pylibpcap](http://sourceforge.net/projects/pylibpcap/):
